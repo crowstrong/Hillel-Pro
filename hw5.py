@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/price')
 @use_kwargs(
     {
-        'country': fields.Str(required=False, missing='USA')
+        'country': fields.Str(required=False, missing=None)
     },
     location='query'
 )
