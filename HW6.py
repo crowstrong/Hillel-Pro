@@ -19,7 +19,6 @@ app = Flask(__name__)
     location="query"
 )
 def stats_by_city(genre):
-    if genre:
         query = f'''
             SELECT BillingCountry, max(count)
             FROM (
