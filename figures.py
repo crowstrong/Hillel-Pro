@@ -5,18 +5,17 @@ from abc import ABC, abstractmethod
 class IShape(ABC):
     @abstractmethod
     def square(self):
-        return 0
+        pass
 
 
-class Shape(ABC):
+class ICCoordinates(ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-    # def square(self):
-    #     return 0
 
-class Circle(Shape):
+class Circle(IShape, ICCoordinates):
+
     def __init__(self, x, y, radius):
         super().__init__(x, y)
         self.radius = radius
@@ -25,7 +24,7 @@ class Circle(Shape):
         return math.pi * self.radius ** 2
 
 
-class Parallelogram(Shape):
+class Parallelogram(IShape, ICCoordinates):
 
     def __init__(self, x, y, height, width, angle):
         super().__init__(x, y)
@@ -41,7 +40,7 @@ class Parallelogram(Shape):
 
     def __str__(self):
         result = super().__str__()
-        return result + f'\nParallelogram: {self.width}, {self.height}, {self.angle}'
+        return f'{result}\nParallelogram: {self.width}, {self.height}, {self.angle}'
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
@@ -51,14 +50,12 @@ class Rectangle(Parallelogram):
 
     def __init__(self, x, y, height, width):
         super().__init__(x, y, height, width, 90)
-        self.height = height
-        self.width = width
 
     def square(self):
         return self.width * self.height
 
 
-class Triangle(Shape):
+class Triangle(IShape, ICCoordinates):
     def __init__(self, x, y, a, b, c):
         super().__init__(x, y)
         self.a = a
@@ -67,15 +64,14 @@ class Triangle(Shape):
 
     def square(self):
         s = (self.a + self.b + self.c) / 2
-        area = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
-        return area
+        return math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
 
 
 class Scene:
     def __init__(self):
         self._figures = []
 
-    def add_figure(self, figure):
+    def add_figure(self, figure: IShape):
         self._figures.append(figure)
 
     def total_square(self):
