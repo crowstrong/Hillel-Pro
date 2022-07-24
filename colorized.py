@@ -25,6 +25,8 @@ class Colorizer:
 
 
 if __name__ == '__main__':
-    with Colorizer('red'):
+    colorizer = Colorizer('red')
+    with colorizer:
         print('Eat some more of those soft French rolls and have some tea.')
-    print('Do not eat some more of those soft French rolls and have some tea!')
+    with colorizer:
+        print('Eat some more of those soft French rolls and have some tea.')
