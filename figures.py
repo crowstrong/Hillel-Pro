@@ -1,17 +1,22 @@
 import math
+from abc import ABC, abstractmethod
 
 
-class Shape:  # class Shape(object)
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
+class IShape(ABC):
+    @abstractmethod
     def square(self):
         return 0
 
 
-class Circle(Shape):
+class Shape(ABC):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    # def square(self):
+    #     return 0
+
+class Circle(Shape):
     def __init__(self, x, y, radius):
         super().__init__(x, y)
         self.radius = radius
@@ -100,4 +105,3 @@ if __name__ == '__main__':
 
     t = Triangle(0, 0, 3, 4, 5)
     print(t.square())
-
